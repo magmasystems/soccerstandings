@@ -1,0 +1,29 @@
+﻿@model StandingsModel
+
+@{
+    ViewData["Title"] = "Premier League Standings";
+}
+
+<div>
+    <h3>@this.Model.LeagueAndYear</h3>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Team</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var record in this.Model.StandingsByPoints)
+                {
+                    <tr>
+                        <td style = "{ padding: 10px }" > @record.Name </td>
+                         <td> @record.Points </td>
+                     </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

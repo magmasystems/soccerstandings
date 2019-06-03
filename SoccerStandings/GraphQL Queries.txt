@@ -1,0 +1,87 @@
+﻿// Get the data of the team that came in first in the standings
+
+query GetLeader() {
+  leader {
+    name
+    points
+    wins
+    losses
+  }
+}
+
+// Get the win/loss record for a team
+
+query GetTeamRecords($name: String!) {
+  teamrecord(name: $name) {
+    name
+    points
+    wins
+    losses
+  }
+}
+
+// These are the variables to use with the GetTeamRecords query
+{
+  "name": "Chelsea"
+}
+
+query GetStandings($id: Int!, $order: SortOrderType) {
+  standings(id: $id, order: $order) {
+    leagueName
+    teamrecords {
+      name
+      points
+    }
+  }
+}
+
+// These are the variables to use with the GetStandings query
+
+{
+  "id": 2,
+  "order": "DESCENDING"
+}
+
+// Get the schemas for all queries
+
+__schema {
+  types {
+    name
+  }
+}
+
+
+// This is how you would use fragments
+query GetStandings($id: Int!, $order: SortOrderType) {
+  standings(id: $id, order: $order) {
+    ...tr
+  }
+}
+
+fragment tr on Standings {
+  teamrecords {
+    name
+    points
+  }
+}
+
+////////////////////////////
+
+mutation ($team: TeamInput!)
+{
+  createTeam(team: $team)
+  {
+    code
+    key
+    name
+  }
+}
+
+
+{
+  "team": {
+    "key": "shefwed", 
+    "code": "SFW", 
+    "name": "Sheffield Wednesday"
+  }
+}
